@@ -1,0 +1,30 @@
+{
+  "variables": {
+    "api_token": ""
+  },
+  "builders": [{
+    "type": "digitalocean",
+    "api_token": "{{ user `api_token` }}",
+    "region": "sfo2",
+    "image": "centos-7-x64",
+    "size": "512mb",
+    "private_networking": true,
+    "snapshot_name": "cio-{{user `build`}}-c7xl3",
+    "ssh_username": "root"
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+    "inline": [
+      "echo '%sudo    ALL=(ALL)  NOPASSWD:ALL' >> /etc/sudoers",
+      "sudo bash",
+      "yum -y install wget",
+      "sudo wget ftp://download.storidge.com/pub/free/c7xl3/cio-{{user `build`}}-c7xl3.amd64.txz",
+      "sudo tar xvf cio-{{user `build`}}-c7xl3.amd64.txz",
+      "sudo -i",
+      "cd cio-{{user `build`}}-c7xl3.amd64/",
+      "./install",
+      "sed -ie '$d' /etc/sudoers"
+    ]
+  }]
+}
