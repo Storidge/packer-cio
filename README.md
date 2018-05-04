@@ -18,8 +18,6 @@ Add your AWS access id and secret key or DigitalOcean api token to the variables
 ```
 git clone https://github.com/Storidge/packer-cio.git
 cd packer-cio
-
-# Usage: packer build -var-file variables.json ${template}
 packer build -var-file variables.json <provider-os>.json
 ```
 
