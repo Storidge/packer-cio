@@ -1,2 +1,2 @@
 # packer-cio
-Packer template to create machine images 
+Packer templates to create machine images with CIO software
