@@ -21,7 +21,7 @@
       "sleep 30",
       "echo '%sudo    ALL=(ALL)  NOPASSWD:ALL' >> /etc/sudoers",
       "yum -y install wget",
-      "sudo wget ftp://download.storidge.com/pub/free/c7xl3/cio-{{user `build`}}-c7xl3.amd64.txz",
+      "sudo wget ftp://download.storidge.com/pub/ce/c7xl3/cio-{{user `build`}}-c7xl3.amd64.txz",
       "sudo tar xvf cio-{{user `build`}}-c7xl3.amd64.txz",
       "sudo -i",
       "cd /home/centos/cio-{{user `build`}}-c7xl3.amd64",
