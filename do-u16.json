@@ -18,7 +18,7 @@
     "inline": [
       "echo '%sudo    ALL=(ALL)  NOPASSWD:ALL' >> /etc/sudoers",
       "sudo bash",
-      "sudo wget ftp://download.storidge.com/pub/free/u16/cio-{{user `build`}}-u16.amd64.txz",
+      "sudo wget ftp://download.storidge.com/pub/ce/u16/cio-{{user `build`}}-u16.amd64.txz",
       "sudo tar xvf cio-{{user `build`}}-u16.amd64.txz",
       "sudo -i",
       "cd cio-{{user `build`}}-u16.amd64/",
