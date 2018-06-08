@@ -28,8 +28,8 @@
     "inline": [
       "sleep 30",
       "echo '%sudo    ALL=(ALL)  NOPASSWD:ALL' >> /etc/sudoers",
-      "sudo wget ftp://download.storidge.com/pub/ce/u16/cio-{{user `build`}}-u16.amd64.txz",
-      "sudo tar xvf cio-{{user `build`}}-u16.amd64.txz",
+      "sudo wget ftp://download.storidge.com/pub/ce/u16/cio-{{user `build`}}-u16-ce.amd64.txz",
+      "sudo tar xvf cio-{{user `build`}}-u16-ce.amd64.txz",
       "sudo -i",
       "cd /home/ubuntu/cio-{{user `build`}}-u16.amd64",
       "./install",
