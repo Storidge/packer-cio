@@ -29,7 +29,7 @@
       "sleep 30",
       "echo '%sudo    ALL=(ALL)  NOPASSWD:ALL' >> /etc/sudoers",
 	  "sudo wget ftp://download.storidge.com/pub/ce/u14/cio-{{user `build`}}-u14-ce.amd64.txz",
-      "sudo tar xvf cio-{{user `build`}}-u14-ee.amd64.txz",
+      "sudo tar xvf cio-{{user `build`}}-u14-ce.amd64.txz",
       "sudo -i",
       "cd /home/ubuntu/cio-{{user `build`}}-u14.amd64",
       "./install",
