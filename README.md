@@ -1,9 +1,11 @@
 # Packer Templates for Storidge CIO
-This repo contains [Packer](https://www.packer.io/) templates for generating AWS AMIs and DigitalOcean snapshot images with [Storidge CIO](http://storidge.com/docs/) software. 
+This repo contains [Packer](https://www.packer.io/) templates for generating AWS AMIs and DigitalOcean snapshot images with the community edition of the [Storidge CIO](http://storidge.com/docs/) software. 
 
 ## Templates
 
 aws-c7xl3.json - Base install of Centos 7.4 with Storidge CIO for AWS AMI
+
+aws-u14.json - Base install of Ubuntu 14.04 with Storidge CIO for AWS AMI
 
 aws-u16.json - Base install of Ubuntu 16.04 with Storidge CIO for AWS AMI
 
