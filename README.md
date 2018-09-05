@@ -14,12 +14,14 @@ do-c7xl3.json - Base install of Centos 7.4 with Storidge CIO for DigitalOcean
 do-u16.json - Base install of Ubuntu 16.04 with Storidge CIO for DigitalOcean
 
 ## Usage
-
-Add your AWS access id and secret key or DigitalOcean api token to the variables.json file, then run: 
-
+Download templates
 ```
 git clone https://github.com/Storidge/packer-cio.git
 cd packer-cio
+```
+Add your AWS access id and secret key or DigitalOcean api token to the variables.json file, then run: 
+```
+vi variables.json
 packer build -var-file variables.json <provider-os>.json
 ```
 
