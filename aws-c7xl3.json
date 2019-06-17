@@ -1,14 +1,23 @@
 {
   "variables": {
     "aws_access_key": "",
-    "aws_secret_key": ""
+    "aws_secret_key": "",
+    "aws_region":  ""
   },
   "builders": [{
     "type": "amazon-ebs",
     "access_key": "{{user `aws_access_key`}}",
     "secret_key": "{{user `aws_secret_key`}}",
-    "region": "us-west-2",
-    "source_ami": "ami-0ebdd976",
+    "region": "{{user `aws_region`}}",
+    "source_ami_filter": {
+      "filters": {
+        "virtualization-type": "hvm",
+        "owner-alias": "aws-marketplace",
+        "product-code": "aw0evgkw8e5c1q413zgy5pjce"
+      },
+      "owners": ["aws-marketplace"],
+      "most_recent": true
+    },
     "instance_type": "t2.micro",
     "ssh_username": "centos",
     "ami_name": "cio-{{user `build`}}-c7xl3"
