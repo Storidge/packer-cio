@@ -3,15 +3,13 @@ This repo contains [Packer](https://www.packer.io/) templates for generating AWS
 
 ## Latest Supported CIO Version
 
-cio-2751
+cio-3007
 
 All supported versions can be found at: http://download.storidge.com/pub/ce/
 
 ## Templates
 
 aws-c7xl3.json 	- Base install of Centos 7.4 with Storidge CIO for AWS AMI
-
-aws-u14.json 		- Base install of Ubuntu 14.04 with Storidge CIO for AWS AMI
 
 aws-u16.json 		- Base install of Ubuntu 16.04 with Storidge CIO for AWS AMI
 
