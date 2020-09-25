@@ -32,7 +32,8 @@
     "inline": [
       "sleep 30",
       "echo '%sudo    ALL=(ALL)  NOPASSWD:ALL' >> /etc/sudoers",
-
+      "sudo apt update",
+      "sudo apt install linux-aws-lts-18.04",
       "sudo wget ftp://download.storidge.com/pub/ce/u18/cio-{{user `build`}}-u18-ce.amd64.txz",
       "sudo tar xvf cio-{{user `build`}}-u18-ce.amd64.txz",
       "sudo -i",
