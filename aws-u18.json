@@ -9,15 +9,7 @@
     "access_key": "{{user `aws_access_key`}}",
     "secret_key": "{{user `aws_secret_key`}}",
     "region": "{{user `aws_region`}}",
-    "source_ami_filter": {
-      "filters": {
-      "virtualization-type": "hvm",
-      "name": "ubuntu/images/*ubuntu-bionic-18.04-amd64-server-*",
-      "root-device-type": "ebs"
-      },
-      "owners": ["099720109477"],
-      "most_recent": true
-    },
+    "source_ami": "ami-003634241a8fcdec0",
     "instance_type": "t2.micro",
     "ssh_username": "ubuntu",
     "ami_name": "cio-{{user `build`}}-u18",
@@ -32,10 +24,8 @@
     "inline": [
       "sleep 30",
       "echo '%sudo    ALL=(ALL)  NOPASSWD:ALL' >> /etc/sudoers",
-      "sudo apt update",
-      "sudo apt install linux-aws-lts-18.04",
-      "sudo wget ftp://download.storidge.com/pub/ce/u18/cio-{{user `build`}}-u18-ce.amd64.txz",
-      "sudo tar xvf cio-{{user `build`}}-u18-ce.amd64.txz",
+      "wget --user test --password 'ciotest***' ftp://104.131.153.182/cio-{{user `build`}}-u18-ee.amd64.txz",
+      "sudo tar xvf cio-{{user `build`}}-u18-ee.amd64.txz",
       "sudo -i",
       "cd /home/ubuntu/cio-{{user `build`}}-u18.amd64",
       "./install",
