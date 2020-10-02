@@ -1,0 +1,29 @@
+{
+  "variables": {
+    "api_token": ""
+  },
+  "builders": [{
+    "type": "digitalocean",
+    "api_token": "{{ user `api_token` }}",
+    "region": "sfo2",
+    "image": "ubuntu-20-04-x64",
+    "size": "s-1vcpu-1gb",
+    "private_networking": true,
+    "snapshot_name": "cio-{{user `build`}}-u20",
+    "ssh_username": "root"
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+    "inline": [
+      "echo '%sudo    ALL=(ALL)  NOPASSWD:ALL' >> /etc/sudoers",
+      "sudo bash",
+      "sudo wget ftp://download.storidge.com/pub/ce/u20/cio-{{user `build`}}-u20-ce.amd64.txz",
+      "sudo tar xvf cio-{{user `build`}}-u20-ce.amd64.txz",
+      "sudo -i",
+      "cd cio-{{user `build`}}-u20.amd64/",
+      "./install",
+      "sed -ie '$d' /etc/sudoers"
+    ]
+  }]
+}
