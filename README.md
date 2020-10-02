@@ -11,6 +11,8 @@ All supported versions can be found at: http://download.storidge.com/pub/ce/
 
 aws-c7xl3.json 	- Base install of Centos 7.4 with Storidge CIO for AWS AMI
 
+aws-u20.json 		- Base install of Ubuntu 20.04 with Storidge CIO for AWS AMI
+
 aws-u16.json 		- Base install of Ubuntu 16.04 with Storidge CIO for AWS AMI
 
 aws-u18.json 		- Base install of Ubuntu 18.04 with Storidge CIO for AWS AMI
