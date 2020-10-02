@@ -3,7 +3,7 @@ This repo contains [Packer](https://www.packer.io/) templates for generating AWS
 
 ## Latest Supported CIO Version
 
-2.0.0-3373
+2.0.0-3411
 
 All supported versions can be found at: http://download.storidge.com/pub/ce/
 
