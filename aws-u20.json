@@ -24,7 +24,7 @@
     "inline": [
       "sleep 30",
       "echo '%sudo    ALL=(ALL)  NOPASSWD:ALL' >> /etc/sudoers",
-      "wget --user test --password 'ciotest***' ftp://104.131.153.182/cio-{{user `build`}}-u20-ee.amd64.txz",
+      "sudo wget ftp://download.storidge.com/pub/ce/u16/cio-{{user `build`}}-u20-ce.amd64.txz",
       "sudo tar xvf cio-{{user `build`}}-u20-ee.amd64.txz",
       "sudo -i",
       "cd /home/ubuntu/cio-{{user `build`}}-u20.amd64",
