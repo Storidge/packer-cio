@@ -1,0 +1,60 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": "",
+    "aws_region":  ""
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "{{user `aws_region`}}",
+    "source_ami_filter": {
+      "filters": {
+        "virtualization-type": "hvm",
+        "owner-alias": "aws-marketplace",
+        "product-code": "aw0evgkw8e5c1q413zgy5pjce"
+      },
+      "owners": ["aws-marketplace"],
+      "most_recent": true
+    },
+    "instance_type": "t2.micro",
+    "ssh_username": "centos",
+    "ami_name": "aws-k8s-c7xl3",
+    "ami_block_device_mappings":[{
+        "device_name":"/dev/sda1",
+        "volume_size":30}]
+  }
+],
+"provisioners": [{
+    "type": "shell",
+    "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+    "expect_disconnect": true,
+    "inline": [
+      "sleep 30",
+      "echo '%sudo    ALL=(ALL)  NOPASSWD:ALL' >> /etc/sudoers",
+      "cat <<EOF > \/etc\/yum.repos.d\/kubernetes.repo\r\n[kubernetes]\r\nname=Kubernetes\r\nbaseurl=https:\/\/packages.cloud.google.com\/yum\/repos\/kubernetes-el7-x86_64\r\nenabled=1\r\ngpgcheck=1\r\nrepo_gpgcheck=1\r\ngpgkey=https:\/\/packages.cloud.google.com\/yum\/doc\/yum-key.gpg https:\/\/packages.cloud.google.com\/yum\/doc\/rpm-package-key.gpg\r\nEOF",
+      "sudo yum install -y kubelet kubeadm kubectl",
+      "systemctl enable kubelet",
+      "systemctl start kubelet",
+      "sudo firewall-cmd --permanent --add-port=6443/tcp",
+      "sudo firewall-cmd --permanent --add-port=2379-2380/tcp",
+      "sudo firewall-cmd --permanent --add-port=10250/tcp",
+      "sudo firewall-cmd --permanent --add-port=10251/tcp",
+      "sudo firewall-cmd --permanent --add-port=10252/tcp",
+      "sudo firewall-cmd --permanent --add-port=10255/tcp",
+      "sudo firewall-cmd --reload",
+      "sudo firewall-cmd --permanent --add-port=10251/tcp",
+      "sudo firewall-cmd --permanent --add-port=10255/tcp",
+      "firewall-cmd --reload",
+      "cat <<EOF > \/etc\/sysctl.d\/k8s.conf\r\nnet.bridge.bridge-nf-call-ip6tables = 1\r\nnet.bridge.bridge-nf-call-iptables = 1\r\nEOF",
+      "sysctl --system",
+      "sudo setenforce 0",
+      "sudo sed -i ‘s/^SELINUX=enforcing$/SELINUX=permissive/’ /etc/selinux/config",
+      "sudo sed -i '/swap/d' /etc/fstab",
+      "sudo swapoff -a",
+      "sed -ie '$d' /etc/sudoers",
+      "sudo reboot now"
+    ]
+  }]
+}

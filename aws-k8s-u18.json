@@ -1,0 +1,48 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": "",
+    "aws_region":  ""
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "{{user `aws_region`}}",
+    "source_ami": "ami-003634241a8fcdec0",
+    "instance_type": "t2.micro",
+    "ssh_username": "ubuntu",
+    "ami_name": "aws-k8s-u18",
+    "ami_block_device_mappings":[{
+        "device_name":"/dev/sda1",
+        "volume_size":30}]
+  }
+],
+"provisioners": [{
+    "type": "shell",
+    "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+    "expect_disconnect": true,
+    "inline": [
+      "sleep 30",
+      "echo '%sudo    ALL=(ALL)  NOPASSWD:ALL' >> /etc/sudoers",
+      "sudo apt-get update",
+      "sudo apt-get install apt-transport-https -y",
+      "apt-get update && apt-get install apt-transport-https ca-certificates curl software-properties-common",
+      "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -",
+      "add-apt-repository \\\r\n  \"deb [arch=amd64] https:\/\/download.docker.com\/linux\/ubuntu \\\r\n  $(lsb_release -cs) \\\r\n  stable\"\r\n ",
+      "sudo apt-get update",
+      "sudo apt-get install docker-ce docker-ce-cli containerd.io",
+      "cat > \/etc\/docker\/daemon.json <<EOF\r\n{\r\n  \"exec-opts\": [\"native.cgroupdriver=systemd\"],\r\n  \"log-driver\": \"json-file\",\r\n  \"log-opts\": {\r\n    \"max-size\": \"100m\"\r\n  },\r\n  \"storage-driver\": \"overlay2\"\r\n}\r\nEOF\r\n",
+      "sudo mkdir -p /etc/systemd/system/docker.service.d",
+      "systemctl daemon-reload",
+      "systemctl restart docker",
+      "curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -",
+      "echo 'deb http:\/\/apt.kubernetes.io\/ kubernetes-xenial main' > \/etc\/apt\/sources.list.d\/kubernetes.list",
+      "sudo apt-get update",
+      "sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni",
+      "sudo swapoff -a",
+      "sed -ie '$d' /etc/sudoers",
+      "sudo reboot now"
+    ]
+  }]
+}
