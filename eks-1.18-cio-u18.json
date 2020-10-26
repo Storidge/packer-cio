@@ -1,0 +1,43 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": "",
+    "aws_region":  ""
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "{{user `aws_region`}}",
+    "source_ami_filter": {
+      "filters": {
+      "virtualization-type": "hvm",
+      "name": "ubuntu-eks/k8s_1.18/images/*hvm-ssd/ubuntu-focal-20.04-amd64-server-*",
+      "root-device-type": "ebs"
+      },
+      "owners": ["099720109477"],
+      "most_recent": true
+    },
+    "instance_type": "t2.micro",
+    "ssh_username": "ubuntu",
+    "ami_name": "eks-1.18-cio-{{user `build`}}-u20",
+    "ami_block_device_mappings":[{
+        "device_name":"/dev/sda1",
+        "volume_size":30}]
+  }
+],
+"provisioners": [{
+    "type": "shell",
+    "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+    "inline": [
+      "sleep 30",
+      "echo '%sudo    ALL=(ALL)  NOPASSWD:ALL' >> /etc/sudoers",
+      "sudo wget --user test --password 'ciotest***' ftp://104.131.153.182/cio-{{user `build`}}-u20-ee.amd64.txz",
+      "sudo tar xvf cio-{{user `build`}}-u20-ee.amd64.txz",
+      "sudo -i",
+      "cd /home/ubuntu/cio-{{user `build`}}-u20.amd64",
+      "./install",
+      "sed -ie '$d' /etc/sudoers"
+    ]
+  }]
+}

@@ -1,0 +1,44 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": "",
+    "aws_region":  ""
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "{{user `aws_region`}}",
+    "source_ami": "ami-0c60d46831249af60",
+    "instance_type": "t2.micro",
+    "ssh_username": "centos",
+    "ami_name": "eks-1.18-cio-{{user `build`}}-c7xl3",
+    "ami_block_device_mappings":[{
+        "device_name":"/dev/sda1",
+        "volume_size":30}]
+  }
+  ],
+  "provisioners": [{
+      "type": "shell",
+      "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+      "inline": [
+        "sleep 30",
+        "echo '%sudo    ALL=(ALL)  NOPASSWD:ALL' >> /etc/sudoers",
+        "yum -y install wget",
+        "sudo wget ftp://download.storidge.com/pub/ce/c7xl3/cio-{{user `build`}}-c7xl3-ce.amd64.txz",
+        "sudo tar xvf cio-{{user `build`}}-c7xl3-ce.amd64.txz",
+        "sudo -i",
+        "cd /home/centos/cio-{{user `build`}}-c7xl3.amd64",
+        "./install",
+        "curl --silent --location \"https:\/\/github.com\/weaveworks\/eksctl\/releases\/latest\/download\/eksctl_$(uname -s)_amd64.tar.gz\" | tar xz -C \/tmp",
+        "sudo mv /tmp/eksctl /usr/local/bin",
+        "curl -o kubectl https:\/\/amazon-eks.s3.us-west-2.amazonaws.com\/1.18.8\/2020-09-18\/bin\/linux\/amd64\/kubectl",
+        "curl -o kubectl.sha256 https:\/\/amazon-eks.s3.us-west-2.amazonaws.com\/1.18.8\/2020-09-18\/bin\/linux\/amd64\/kubectl.sha256",
+        "openssl sha1 -sha256 kubectl",
+        "chmod +x .\/kubectl",
+        "sudo mv .\/kubectl \/usr\/local\/bin",
+        "kubectl version --short --client",
+        "sed -ie '$d' /etc/sudoers"
+    ]
+  }]
+}
