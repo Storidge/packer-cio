@@ -17,11 +17,23 @@ aws-u16.json 		- Base install of Ubuntu 16.04 with Storidge CIO for AWS AMI
 
 aws-u18.json 		- Base install of Ubuntu 18.04 with Storidge CIO for AWS AMI
 
+aws-u20.json    - Base install of Ubuntu 20.04 with Storidge CIO for AWS AMI
+
+aws-k8s-c7xl3.json - Base install of Centos 7.4 with Kubernetes 1.18 for AWS AMI
+
+aws-k8s-u18.json - Base install of Ubuntu 18.04 with Kubernetes 1.18 for AWS AMI
+
 do-c7xl3.json 	- Base install of Centos 7.4 with Storidge CIO for DigitalOcean
 
 do-u16.json 		- Base install of Ubuntu 16.04 with Storidge CIO for DigitalOcean
 
 do-u18.json 		- Base install of Ubuntu 18.04 with Storidge CIO for DigitalOcean
+
+do-u20.json     - Base install of Ubuntu 20.04 with Storidge CIO for DigitalOcean
+
+eks-1.18-cio-c7xl3.json - Base install of Centos 7.4 with Storidge CIO and Kubernetes 1.18 for AWS EKS AMI
+
+eks-1.18-cio-u18.json - Base install of Ubuntu 18.04 with Storidge CIO and Kubernetes 1.18 for AWS EKS AMI
 
 ## Usage
 [Download Packer](https://www.packer.io/downloads.html)
