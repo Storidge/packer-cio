@@ -9,31 +9,25 @@ All supported versions can be found at: http://download.storidge.com/pub/ce/
 
 ## Templates
 
-aws-c7xl3.json 	- Base install of Centos 7.4 with Storidge CIO for AWS AMI
+aws-c7xl3.json 	- AMI with Storidge CIO on Centos 7
 
-aws-u20.json 		- Base install of Ubuntu 20.04 with Storidge CIO for AWS AMI
+aws-u20.json 		- AMI with Storidge CIO on Ubuntu 20.04
 
-aws-u16.json 		- Base install of Ubuntu 16.04 with Storidge CIO for AWS AMI
+aws-u18.json 		- AMI with Storidge CIO on Ubuntu 18.04
 
-aws-u18.json 		- Base install of Ubuntu 18.04 with Storidge CIO for AWS AMI
+aws-k8s-c7xl3.json - AMI with EKS 1.18 on Centos 7
 
-aws-u20.json    - Base install of Ubuntu 20.04 with Storidge CIO for AWS AMI
+aws-k8s-u18.json - AMI with EKS 1.18 on Ubuntu 18.04
 
-aws-k8s-c7xl3.json - Base install of Centos 7.4 with Kubernetes 1.18 for AWS AMI
+do-c7xl3.json 	- DO image with Storidge CIO on Centos 7
 
-aws-k8s-u18.json - Base install of Ubuntu 18.04 with Kubernetes 1.18 for AWS AMI
+do-u18.json 	- DO image with Storidge CIO on Ubuntu 18.04
 
-do-c7xl3.json 	- Base install of Centos 7.4 with Storidge CIO for DigitalOcean
+do-u20.json   - DO image with Storidge CIO on Ubuntu 20.04
 
-do-u16.json 		- Base install of Ubuntu 16.04 with Storidge CIO for DigitalOcean
+eks-1.18-cio-c7xl3.json - AMI with EKS 1.18, Storidge CIO on Centos 7
 
-do-u18.json 		- Base install of Ubuntu 18.04 with Storidge CIO for DigitalOcean
-
-do-u20.json     - Base install of Ubuntu 20.04 with Storidge CIO for DigitalOcean
-
-eks-1.18-cio-c7xl3.json - Base install of Centos 7.4 with Storidge CIO and Kubernetes 1.18 for AWS EKS AMI
-
-eks-1.18-cio-u18.json - Base install of Ubuntu 18.04 with Storidge CIO and Kubernetes 1.18 for AWS EKS AMI
+eks-1.18-cio-u18.json - AMI with EKS 1.18, Storidge CIO on Ubuntu 18.04
 
 ## Usage
 [Download Packer](https://www.packer.io/downloads.html)
